@@ -1,0 +1,117 @@
+<div class="container w-26 border shadow mt-5 p-3" data-controller="check-balance category-toggle">
+  <h2 class="text-center mb-4">
+    <strong><%= @transaction.persisted? ? "Edita tu Transacción! ✏️" : "Crea tu transacción! " %></strong> 🧑🏼‍💻
+  </h2>
+  <h1 class="text-end text-success mb-4">Balance:
+    <span id="balance" data-check-balance-target="balance">
+      <%= number_to_currency(@account.balance.total_amount, unit: "", delimiter: ",") %>
+    </span>
+  </h1>
+
+  <%= simple_form_for [@account, @transaction] do |c| %>
+    <div class="mb-3">
+
+
+      <%= c.input :mytransaction_type,
+                  label: "Tipo de cuenta:",
+                  label_html: { class: "form-label fw-bold" },
+                  as: :select,
+                  collection: ["Ingreso", "Egreso"],
+                  include_blank: "Selecciona una opción",
+                  input_html: {
+                    data: {
+                      action: "change->check-balance#disableEgreso",
+                      check_balance_target: "select"
+                    },
+                    class: "form-select"
+                  } ,required: false
+      %>
+    </div>
+
+
+    <div class="mb-3">
+      <%= c.input :category,
+                  label: "Categoria:",
+                  label_html: { class: "form-label fw-bold" },
+                  as: :select,
+                  collection: ["Sueldo", "Bonificaciones", "Ingresos por Alquiler", "Venta de bienes", "Comida",
+                               "Entretenimiento", "Inversiones", "Pensiones", "Subsidios", "Pago de alquiler",
+                               "Pago transporte", "Pago Supermercado", "Pago Restaurantes", "Pago Seguro Médico",
+                               "Pago Consulta Médica", "Compra Medicamentos", "Pago de impuestos",
+                               "Compra de Ropa y Calzado", "Reparación y mantenimiento del hogar", "Otra"],
+                  include_blank: "Selecciona una categoría",
+                  input_html: {
+                    data: {
+                      action: "change->category-toggle#toggleCustomCategory",
+                      category_toggle_target: "select"
+                    },
+                    class: "form-select"
+                  },required: false
+      %>
+    </div>
+
+    <div id="custom-category-field"
+         data-category-toggle-target="customCategory"
+         style="display: none;">
+      <%= c.input :custom_category,
+                  label: "Nueva categoría",
+                  input_html: {
+                    placeholder: "Escribe tu categoría",
+                    class: "form-control"
+                  }
+      %>
+    </div>
+
+    <div class="mb-3">
+      <%= c.input :amount,
+                  label: "Monto:",
+                  label_html: { class: "form-label fw-bold" },
+                  input_html: {
+                    data: {
+                      check_balance_target: "amount",
+                      action: "keyup->check-balance#saldo"
+                    },
+                    class: "form-control"
+                  },required: false
+      %>
+    </div>
+
+    <div class="mb-3 d-none">
+      <%= c.association :goal, class: "form-select" %>
+    </div>
+
+
+    <div class="mb-3">
+      <%= c.input :method,
+                  label: "Metodo de pago: ",
+                  label_html: { class: "form-label fw-bold" },
+                  as: :select,
+                  collection: ["Efectivo", "Tarjeta de crédito", "Tarjeta de débito", "Transferencia Bancaria",
+                               "Billetera electrónica", "Otra"],
+                  include_blank: "Selecciona un metodo de pago",
+                  class: "form-select",required: false
+      %>
+    </div>
+
+    <div class="mb-3">
+      <%= c.input :description, label:"Descripción: ", label_html: { class: "form-label fw-bold" }
+ %>
+    </div>
+
+    <div class="mb-3">
+      <%= c.input :date,
+                        label: "Fecha: ",
+                        label_html: { class: "form-label fw-bold" },
+                        as: :string,
+                        input_html: {
+                          data: { controller: "datepicker" },
+                          class: "form-control"
+                        }, required: false
+      %>
+    </div>
+
+    <div class="text-center">
+      <%= c.submit @transaction.persisted? ? "Actualizar transacción" : "Crear transacción", data: { check_balance_target: "submit" }, class: "btn btn-primary fw-bold" %>
+    </div>
+  <% end %>
+</div>

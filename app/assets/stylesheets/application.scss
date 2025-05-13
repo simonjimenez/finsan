@@ -1,0 +1,67 @@
+// Graphical variables
+@import "config/fonts";
+@import "config/colors";
+@import "config/bootstrap_variables";
+
+// External libraries
+@import "bootstrap";
+@import "font-awesome";
+
+// Your CSS partials
+@import "components/index";
+@import "pages/index";
+@import 'pages/login';
+
+
+.card {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+
+/////////////////////////
+.container {
+  max-width: 800px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.btn-outline-primary {
+  color: #4caf50;
+  border-color: #4caf50;
+  &:hover {
+    background-color: #4caf50;
+    color: white;
+  }
+}
+
+img {
+  max-height: 300px;
+  object-fit: cover;
+}
+
+.btn-orange {
+  background-color: #ff9801;
+  border-color: #ff9801;
+}
+
+.btn-orange:hover {
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
