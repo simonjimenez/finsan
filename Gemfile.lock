@@ -130,7 +130,6 @@ GEM
       dotenv (= 3.1.4)
       railties (>= 6.1)
     drb (2.2.1)
-    error_highlight (0.6.0)
     erubi (1.13.0)
     et-orbi (1.2.11)
       tzinfo
@@ -215,7 +214,7 @@ GEM
     psych (5.2.0)
       stringio
     public_suffix (6.0.1)
-    puma (6.4.3)
+    puma (6.6.1)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
@@ -378,7 +377,6 @@ DEPENDENCIES
   debug
   devise
   dotenv-rails
-  error_highlight (>= 0.4.0)
   font-awesome-sass (~> 6.1)
   importmap-rails
   jbuilder
